@@ -70,6 +70,34 @@ async function main() {
             div.style.display = 'flex';
         });
     });
+    console.log("com.4vent.pixivextention.prexiview Loaded!")
 }
 
-main();
+var href = location.href;
+document.addEventListener("DOMNodeInserted", function(e) {
+    e.stopPropagation();
+    if(href !== location.href) {
+        // main(); 
+        href = location.href;
+        console.log(location.href)
+    }
+});
+
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        main();
+    })
+})
+
+const config = {
+    characterData: true,
+    subtree: true
+}
+
+try{
+    observer.observe(document.getElementsByClassName('sc-1pt8s3a-8')[0], config);
+    main();
+}catch{
+    window.alert("could not find class 'sc-1pt8s3a-8' (作品数)")
+}
+
