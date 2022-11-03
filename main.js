@@ -7,6 +7,7 @@ main = () => {
     });
 };
 
+var href = location.href;
 document.addEventListener("DOMNodeInserted", function(e) {
     e.stopPropagation();
     if(href !== location.href) {
