@@ -55,6 +55,7 @@ async function main() {
     });
     document.body.insertBefore(div, document.body.children[0]);
 
+    promises = []
     Array.from(links).forEach(async link => {
         if (!link.href.startsWith('https://www.pixiv.net/artworks/')) return;
 
@@ -70,22 +71,35 @@ async function main() {
             div.style.display = 'flex';
         });
     });
-    console.log("com.4vent.pixivextention.prexiview Loaded!")
+    console.log("com.4vent.pixivextention.prexiview Loading!")
 }
 
 var href = location.href;
 document.addEventListener("DOMNodeInserted", function(e) {
     e.stopPropagation();
-    if(href !== location.href) {
-        // main(); 
-        href = location.href;
-        console.log(location.href)
-    }
+    observer.observe(document, config);
+    // if(href !== location.href) {
+    //     setTimeout(() => {
+    //         main(); 
+    //     }, timeout);
+    //     href = location.href;
+    // }
 });
+
+// var _status = 0
 
 const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
+        // const my_status = _status + 1;
+        // console.log(my_status)
+        // _status = my_status;
+        // setTimeout(() => {
+        //     if (_status == my_status) {
+        observer.disconnect();
         main();
+        //         _status = 0;
+        //     }
+        // }, 1000);
     })
 })
 
@@ -94,10 +108,4 @@ const config = {
     subtree: true
 }
 
-try{
-    observer.observe(document.getElementsByClassName('sc-1pt8s3a-8')[0], config);
-    main();
-}catch{
-    window.alert("could not find class 'sc-1pt8s3a-8' (作品数)")
-}
-
+main();
