@@ -74,16 +74,24 @@ async function main() {
     console.log("com.4vent.pixivextention.prexiview Loading!")
 }
 
+function sleep3sec() {
+    const div = document.createElement('div')
+    div.style = 'display: flex; position: fixed; z-index: 100; height: 100%; width: 100%; background: #000000cc;';
+    document.body.insertBefore(div, document.body.children[0]);
+    setTimeout(() => {
+        main();
+        div.remove();
+    }, 3000);
+}
+
 var href = location.href;
 document.addEventListener("DOMNodeInserted", function(e) {
     e.stopPropagation();
-    observer.observe(document, config);
-    // if(href !== location.href) {
-    //     setTimeout(() => {
-    //         main(); 
-    //     }, timeout);
-    //     href = location.href;
-    // }
+    // observer.observe(document, config);
+    if(href !== location.href) {
+        sleep3sec();
+        href = location.href;
+    }
 });
 
 // var _status = 0
@@ -108,4 +116,4 @@ const config = {
     subtree: true
 }
 
-main();
+sleep3sec();
