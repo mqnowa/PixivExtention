@@ -114,7 +114,7 @@ async function apply_script(preview_div_node, preview_img_node) {
 var preview_div_node, preview_img_node;
 function handleMiddleClick(e) {
     if (e.button != 1) return;
-    e.preventDefault()
+    // e.preventDefault()
     if (previewReady == false) {
         [preview_div_node, preview_img_node] = letPreviewWindow();
         apply_script(preview_div_node, preview_img_node);
