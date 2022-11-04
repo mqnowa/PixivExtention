@@ -83,16 +83,18 @@ function main() {
     .material-symbols-outlined {
         font-variation-settings:
         'FILL' 0,
-        'wght' 600,
+        'wght' 700,
         'GRAD' 0,
         'opsz' 48
     }`;
     document.head.appendChild(link)
     document.head.appendChild(style)
     const button = document.createElement("button");
+    button.style = "margin-left: 10px;"
     button.onclick = () => {
         apply_script();
         button.disabled = true;
+        button.children[0].style = "font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48"
     };
     button.className = "cxMKm";
     button.innerHTML = '<span class="material-symbols-outlined"> visibility </span>'
