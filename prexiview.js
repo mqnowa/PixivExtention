@@ -98,9 +98,13 @@ function main() {
         button.disabled = true;
         button.children[0].style = "font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48"
     };
-    button.className = "cxMKm";
+    button.className = "cxMKm _eyebutton";
     button.innerHTML = '<span class="material-symbols-outlined"> visibility </span>'
     const list = document.getElementsByClassName("dDbpNF")[0]
+    const eyebuttons = document.getElementsByClassName("_eyebutton")
+    if (eyebuttons.length > 0) {
+        eyebuttons[0].remove();
+    }
     list.appendChild(button);
 }
 
