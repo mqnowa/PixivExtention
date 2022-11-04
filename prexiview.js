@@ -75,13 +75,27 @@ async function apply_script() {
 }
 
 function main() {
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    const style = document.createElement("style")
+    style.innerHTML = `
+    .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 600,
+        'GRAD' 0,
+        'opsz' 48
+    }`;
+    document.head.appendChild(link)
+    document.head.appendChild(style)
     const button = document.createElement("button");
     button.onclick = () => {
         apply_script();
         button.disabled = true;
     };
     button.className = "cxMKm";
-    button.innerHTML = '<svg viewBox="0 0 120 120" class="sc-1yjbuvb-0 iBWSCc"><polyline points="60,105 60,8"></polyline><polyline points="10,57 60,8 110,57"></polyline></svg>'
+    button.innerHTML = '<span class="material-symbols-outlined"> visibility </span>'
     const list = document.getElementsByClassName("dDbpNF")[0]
     list.appendChild(button);
 }
