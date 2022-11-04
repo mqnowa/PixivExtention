@@ -43,6 +43,15 @@ function getPreloadData(url) {
 const PREVEW_QUALITY = 'regular'
 // const PREVEW_QUALITY = 'original'
 
+async function showPreview(e, img, div){
+    const a = getATag(e);
+    const id = a.href.match(/[^\/]+$/)
+    const data = await getPreloadData(a.href);
+    const image_reguler_link = data.illust[id].urls[PREVEW_QUALITY]
+    img.src = image_reguler_link
+    div.style.display = 'flex';
+}
+
 async function apply_script() {
     const links = document.getElementsByTagName('a');
     const img = document.createElement('img');
@@ -58,17 +67,10 @@ async function apply_script() {
     promises = []
     Array.from(links).forEach(async link => {
         if (!link.href.startsWith('https://www.pixiv.net/artworks/')) return;
-
         link.addEventListener("auxclick", async e => {
             if (e.button != 1) return;
             e.preventDefault();
-
-            const a = getATag(e);
-            const id = a.href.match(/[^\/]+$/)
-            const data = await getPreloadData(a.href);
-            const image_reguler_link = data.illust[id].urls[PREVEW_QUALITY]
-            img.src = image_reguler_link
-            div.style.display = 'flex';
+            await showPreview(e, img, div);
         });
     });
     console.log("com.4vent.pixivextention.prexiview Loading!")
