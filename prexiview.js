@@ -52,8 +52,7 @@ async function showPreview(e, img, div){
     div.style.display = 'flex';
 }
 
-async function apply_script() {
-    const links = document.getElementsByTagName('a');
+function letPreviewWindow() {
     const img = document.createElement('img');
     img.style = 'display: block; object-fit: contain; height: 100%; width: 100%;';
     const div = document.createElement('div');
@@ -63,63 +62,73 @@ async function apply_script() {
         div.style.display = 'none';
     });
     document.body.insertBefore(div, document.body.children[0]);
+    return [div, img]
+}
 
-    promises = []
+async function apply_script(preview_div_node, preview_img_node) {
+    const links = document.getElementsByTagName('a');
     Array.from(links).forEach(async link => {
         if (!link.href.startsWith('https://www.pixiv.net/artworks/')) return;
         link.addEventListener("auxclick", async e => {
             if (e.button != 1) return;
             e.preventDefault();
-            await showPreview(e, img, div);
+            await showPreview(e, preview_img_node, preview_div_node);
         });
     });
     console.log("com.4vent.pixivextention.prexiview Loading!")
 }
 
 
+// function addPreviewModeButton() {
+//     const link = document.createElement("link")
+//     link.rel = "stylesheet"
+//     link.href = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+//     const style = document.createElement("style")
+//     style.innerHTML = `
+//     .material-symbols-outlined {
+//         font-variation-settings:
+//         'FILL' 0,
+//         'wght' 700,
+//         'GRAD' 0,
+//         'opsz' 48
+//     }`;
+//     document.head.appendChild(link)
+//     document.head.appendChild(style)
+//     const button = document.createElement("button");
+//     button.style = "margin-left: 10px;"
+//     button.onclick = () => {
+//         apply_script();
+//         button.disabled = true;
+//         button.children[0].style = "font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48"
+//     };
+//     button.className = "cxMKm _eyebutton";
+//     button.innerHTML = '<span class="material-symbols-outlined"> visibility </span>'
+//     const list = document.getElementsByClassName("dDbpNF")[0]
+//     const eyebuttons = document.getElementsByClassName("_eyebutton")
+//     if (eyebuttons.length > 0) {
+//         eyebuttons[0].remove();
+//     }
+//     list.appendChild(button);
+// }
 
-function addPreviewModeButton() {
-    const link = document.createElement("link")
-    link.rel = "stylesheet"
-    link.href = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    const style = document.createElement("style")
-    style.innerHTML = `
-    .material-symbols-outlined {
-        font-variation-settings:
-        'FILL' 0,
-        'wght' 700,
-        'GRAD' 0,
-        'opsz' 48
-    }`;
-    document.head.appendChild(link)
-    document.head.appendChild(style)
-    const button = document.createElement("button");
-    button.style = "margin-left: 10px;"
-    button.onclick = () => {
-        apply_script();
-        button.disabled = true;
-        button.children[0].style = "font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48"
-    };
-    button.className = "cxMKm _eyebutton";
-    button.innerHTML = '<span class="material-symbols-outlined"> visibility </span>'
-    const list = document.getElementsByClassName("dDbpNF")[0]
-    const eyebuttons = document.getElementsByClassName("_eyebutton")
-    if (eyebuttons.length > 0) {
-        eyebuttons[0].remove();
-    }
-    list.appendChild(button);
-}
-
+var preview_div_node, preview_img_node;
 function handleMiddleClick(e) {
     if (e.button != 1) return;
     e.preventDefault()
-    document.removeEventListener("mousedown", handleMiddleClick)
-    apply_script();
+    if (previewReady == false) {
+        [preview_div_node, preview_img_node] = letPreviewWindow();
+        apply_script(preview_div_node, preview_img_node);
+        previewReady = true;
+    } else {
+        apply_script(preview_div_node, preview_img_node);
+    }
 }
 
 var href = location.href;
+var previewReady = false;
 document.addEventListener("DOMNodeInserted", e => {
     if (href != location.href) {
+        previewReady = false;
         document.addEventListener("mousedown", handleMiddleClick);
         href = location.href;
     }

@@ -36,13 +36,53 @@ function importCSS() {
     const link = document.createElement('link');
     link.rel = "stylesheet";
     link.type = "text/css";
-    link.href = "https://4vent.github.io/PixivExtention/toggle.css";
+    link.href = "https://4vent.github.io/PixivExtention/toggle.css?version=bf74586";
     document.head.appendChild(link);
 }
 
-function main() {
+async function main() {
     importCSS();
-    toggles = insertCheckbox();
+    const toggles = insertCheckbox();
+    const settingDOM = await checkSetting();
+    const r18radios = settingDOM.getElementsByName('r18')
+    Array.from(r18radios).forEach(t => {
+        if (t.hasAttribute('checked')) {
+            if (t.getAttribute('value') == "show") {
+                toggles.r18.classList.add('checked')
+            }
+        }
+    })
+    const r18gradios = settingDOM.getElementsByName('r18g')
+    Array.from(r18gradios).forEach(t => {
+        if (t.hasAttribute('checked')) {
+            if (t.getAttribute('value') == "2") {
+                toggles.r18g.classList.add('checked')
+            }
+        }
+    })
+
+    const config = { 
+        attributes: true, 
+        childList: false, 
+        characterData: false 
+    };
+    const obserber = new MutationObserver(mrs => {
+        mrs.forEach(mr => {
+            mr.target.classList.hasAttribute('checked')
+        })
+    })
+    obserber.observe(toggles.r18, config);
 }
+
+/** @returns {Promise<Document>}*/
+function checkSetting() {
+    return new Promise(resolve => {
+        fetch('https://www.pixiv.net/setting_user.php')
+        .then(res => res.text())
+        .then(text => resolve(new DOMParser().parseFromString(text, 'text/html')))
+    })
+}
+
+// checkSetting();
 
 main();
