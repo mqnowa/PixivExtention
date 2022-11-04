@@ -43,7 +43,7 @@ function getPreloadData(url) {
 const PREVEW_QUALITY = 'regular'
 // const PREVEW_QUALITY = 'original'
 
-async function main() {
+async function apply_script() {
     const links = document.getElementsByTagName('a');
     const img = document.createElement('img');
     img.style = 'display: block; object-fit: contain; height: 100%; width: 100%;';
@@ -72,6 +72,18 @@ async function main() {
         });
     });
     console.log("com.4vent.pixivextention.prexiview Loading!")
+}
+
+function main() {
+    const button = document.createElement("button");
+    button.onclick = () => {
+        apply_script();
+        button.disabled = true;
+    };
+    button.className = "cxMKm";
+    button.innerHTML = '<svg viewBox="0 0 120 120" class="sc-1yjbuvb-0 iBWSCc"><polyline points="60,105 60,8"></polyline><polyline points="10,57 60,8 110,57"></polyline></svg>'
+    const list = document.getElementsByClassName("dDbpNF")[0]
+    list.appendChild(button);
 }
 
 main();
