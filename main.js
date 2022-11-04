@@ -11,7 +11,7 @@ var href = location.href;
 var _status = 0
 
 function a(e) {
-    if(href !== location.href) {
+    if(href != location.href) {
         const my_status = _status + 1;
         _status = my_status
         setTimeout(() => {
