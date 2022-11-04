@@ -76,6 +76,8 @@ async function apply_script() {
     console.log("com.4vent.pixivextention.prexiview Loading!")
 }
 
+
+
 function main() {
     const link = document.createElement("link")
     link.rel = "stylesheet"
@@ -108,4 +110,13 @@ function main() {
     list.appendChild(button);
 }
 
-main();
+function handleMiddleClick(e) {
+    if (e.button != 1) return;
+    e.preventDefault()
+    document.removeEventListener("mousedown", handleMiddleClick)
+    apply_script();
+}
+
+document.addEventListener("mousedown", handleMiddleClick)
+
+// main();
