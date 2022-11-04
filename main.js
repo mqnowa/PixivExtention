@@ -7,23 +7,23 @@ main = () => {
     });
 };
 
-var href = location.href;
-var _status = 0
+// var href = location.href;
+// var _status = 0
 
-function a(e) {
-    if(href != location.href) {
-        const my_status = _status + 1;
-        _status = my_status
-        setTimeout(() => {
-            if (my_status == _status) {
-                main();
-                href = location.href;
-                _status = 0;
-            }
-        }, 100);
-    }
-}
+// function a(e) {
+//     if(href != location.href) {
+//         const my_status = _status + 1;
+//         _status = my_status
+//         setTimeout(() => {
+//             if (my_status == _status) {
+//                 main();
+//                 href = location.href;
+//                 _status = 0;
+//             }
+//         }, 100);
+//     }
+// }
 
-document.addEventListener("DOMNodeInserted", a);
+// document.addEventListener("DOMNodeInserted", a);
 
 main();

@@ -117,6 +117,12 @@ function handleMiddleClick(e) {
     apply_script();
 }
 
-document.addEventListener("mousedown", handleMiddleClick)
+var href = location.href;
+document.addEventListener("DOMNodeInserted", e => {
+    if (href != location.href) {
+        document.addEventListener("mousedown", handleMiddleClick);
+        href = location.href;
+    }
+});
 
-// main();
+document.addEventListener("mousedown", handleMiddleClick)
