@@ -3,7 +3,7 @@
     position: relative;
     width: 54px;
     height: 18px;
-    margin: 5px 5px;
+    margin: 0 0;
     border-radius: 50px;
     overflow: hidden;
     cursor: pointer;
@@ -43,7 +43,6 @@
     transition: 0.2s ease-out;
     text-align: center;
 
-    content: "R18";
     padding: 3px 0 0;
     line-height: 1;
     font-size: 12px;
@@ -53,14 +52,29 @@
     box-sizing: border-box;
 }
 
+#mytoggler18:after {
+    content: "R18";
+}
+#mytoggler18g:after {
+    content: "R18G";
+}
+
 /* 疑似要素1 トグルの背景 */
-.mytoggle.checked:before {
+#mytoggler18.checked:before {
     background: #e71980;
+}
+#mytoggler18g.checked:before {
+    background: #b80600;
 }
 
 /* 疑似要素2 トグルの丸 */
 .mytoggle.checked:after {
     left: 11px;
-    color: #e71980;
     box-shadow: 0 9px 28px -6px rgba(0, 0, 0, 0.5);
+}
+#mytoggler18.checked:after {
+    color: #e71980;
+}
+#mytoggler18g.checked:after {
+    color: #b80600;
 }
