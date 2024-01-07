@@ -75,7 +75,7 @@ async function apply_script(preview_div_node, preview_img_node) {
             await showPreview(e, preview_img_node, preview_div_node);
         });
     });
-    console.log("com.4vent.pixivextention.prexiview Loading!")
+    console.log("com.mqnowa.pixivextention.prexiview Loading!")
 }
 
 

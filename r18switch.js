@@ -36,7 +36,7 @@ function importCSS() {
     const link = document.createElement('link');
     link.rel = "stylesheet";
     link.type = "text/css";
-    link.href = "https://4vent.github.io/PixivExtention/toggle.css?version=bf74586";
+    link.href = "https://mqnowa.github.io/PixivExtention/toggle.css?version=bf74586";
     document.head.appendChild(link);
 }
 
